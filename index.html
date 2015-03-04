@@ -4,12 +4,24 @@
     <meta charset="UTF-8">
     <title>Neighborhood Map Project</title>
     <link rel="stylesheet" href="css/main.css">
-    <script async type='text/javascript' src='js/lib/knockout-3.3.0.js'></script>
-    <script async src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 </head>
 <body>
     <div id="map-canvas"></div>
+    <div id="search-nav">
+        <input name="search-box" type="text" value="search"></input>
+        <ul>
+            <a class="nav" href="#"><li>Jefferson Memorial</li></a>
+            <a href="#"><li>Lincoln Memorial</li></a>
+            <a href="#"><li>The Washington Monument</li></a>
+            <a href="#"><li>The US Capitol</li></a>
+            <a href="#"><li>The White House</li></a>
+            <a href="#"><li>The WWII Meseum</li></a>
+        </ul>
+    </div>
 
-    <script async src="js/script.js"></script>
+
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script type='text/javascript' src='js/lib/knockout-3.3.0.js'></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

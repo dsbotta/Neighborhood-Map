@@ -5,5 +5,34 @@ body {background-color: #CCC;}
 html, body, #map-canvas {
     width: 100%;
     height: 100%;
-    /*z-index: -1;*/
+    z-index: 1;
+    position: absolute;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+li {
+    margin: 20px 0;
+    font-family: helvetica, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+input {
+    margin: 20px 0 0 20px;
+    width: 80%;
+    height: 30px;
+}
+
+#search-nav {
+    position: absolute;
+    max-height: 500px;
+    width: 250px;
+    z-index: 2;
+    background-color: rgba(256,256,256,.8);
 }

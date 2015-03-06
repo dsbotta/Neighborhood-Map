@@ -8,15 +8,25 @@
 <body>
     <div id="map-canvas"></div>
     <div id="search-nav">
-        <input name="search-box" type="text" value="search"></input>
-        <ul>
-            <a class="nav" href="#"><li>Jefferson Memorial</li></a>
-            <a href="#"><li>Lincoln Memorial</li></a>
-            <a href="#"><li>The Washington Monument</li></a>
-            <a href="#"><li>The US Capitol</li></a>
-            <a href="#"><li>The White House</li></a>
-            <a href="#"><li>The WWII Meseum</li></a>
+        <form action="#">
+        <input id="input" placeholder="Search…" type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off"></input>
+        </form>
+        <ul data-bind="template: {name: 'marker', foreach:markers}">
         </ul>
+
+        <script type="text/html" id="marker">
+            <div data-bind="visible: visible">
+            <a href="#" data-bind="attr: {id: id}">
+                <li>
+                    <strong data-bind="text: title"></strong>
+                    <p data-bind="text: streetAddress"></p>
+                    <p data-bind="text: cityAddress"></p> 
+                </li>
+            </a>
+            <hr>
+            </div>
+        </script>    
+
     </div>
 
 

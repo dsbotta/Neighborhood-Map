@@ -7,10 +7,13 @@
 </head>
 <body>
     <div id="map-canvas"></div>
-    <div id="search-nav">
-        <form action="#">
-        <input id="input" placeholder="Search…" type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off"></input>
-        </form>
+    <div id="search-container">
+    <div id="search-nav">    
+<!--         <form action="#">   -->
+        <input id="input" placeholder="Search…" type="input" data-bind="textInput: query, valueUpdate: 'keydown'" autocomplete="off"></input>
+        <!-- <button id="button"></button> -->
+<!--         </form> -->
+        <div id="scroller">
         <ul data-bind="template: {name: 'marker', foreach:markers}">
         </ul>
 
@@ -26,8 +29,13 @@
             <hr>
             </div>
         </script>    
-
+        </div>
+    </div> 
+    <div id="arrow-container">
+    <img id="arrow" src="img/up-arrow.gif" alt="arrow image">
+    </div>   
     </div>
+    
 
 
     <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>

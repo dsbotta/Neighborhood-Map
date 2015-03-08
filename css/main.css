@@ -1,4 +1,6 @@
 * {box-sizing:border-box;}
+*:visited {color: #454545}
+
 body {background-color: #CCC;}
 
 
@@ -9,13 +11,23 @@ html, body, #map-canvas {
     position: absolute;
 }
 
+p {
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+strong {
+    font-size: 14px;
+}
+
 ul {
     list-style-type: none;
-    padding-left: 20px;
+    padding-left: 0;
+    margin-bottom: 0;
 }
 
 li {
-    margin: 20px 0;
+    margin: 15px 15px;
     font-family: helvetica, sans-serif;
 }
 
@@ -23,16 +35,57 @@ a {
     text-decoration: none;
 }
 
-input {
-    margin: 20px 0 0 20px;
-    width: 80%;
-    height: 30px;
+hr {
+    margin: 10px 0 0 0;
+    color: orange;
+    border-color: orange;
+}
+
+#input {
+    margin: 15px 0 15px 20px;
+    width: 83%;
+    height: 35px;
+    border: 2px solid #9D9D9D;
+    font-size: 17px;
+    font-family: helvetica, sans-serif;
+    color: #9D9D9D;
+}
+
+#input:focus {
+    outline-color: orange;
+}
+
+#search-container {
+    position: absolute;
+    z-index: 2; 
 }
 
 #search-nav {
-    position: absolute;
-    max-height: 500px;
-    width: 250px;
-    z-index: 2;
+   /* position: absolute;*/
+    width: 280px;
+    max-height: 493px;
+ /*   z-index: 2;*/
     background-color: rgba(256,256,256,.8);
+    border: solid 2px orange;
+}
+
+#scroller {
+    max-height: 424px;
+    overflow: scroll;
+    margin: 0 5px;
+}
+
+a:hover {
+    color: #7D7D7D;
+}
+
+#arrow {
+    height: 50px;
+    width: 50px;
+}
+
+#arrow-container {
+    background-color: rgba(1, 1, 1, 0.5);
+    max-width: 50px;
+    border-radius: 50%;
 }

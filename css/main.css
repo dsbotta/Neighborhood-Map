@@ -91,18 +91,66 @@ li:hover {
     border-radius: 50%;
 }
 
+.weather-container {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    top: 0;
+}
+
+#weather-image-container {
+    display: block;
+    z-index: 2;
+    margin: auto;
+    background-color: white;
+    width: 80px;
+    height: 60px;
+    padding-top: 5px;
+    margin: auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.weather-container img {
+    display: inline-block;
+}
+
+.forecast {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.forecast h3 {
+    display: block;
+    vertical-align: top;
+    margin: 5px 0 0 20px;
+}
+
+.forecast li {
+    display: inline-block;
+    margin: 0 0 0 40px;
+    padding: 0;
+}
+
+.forecast li:hover {
+    background-color: white;
+    color: black;
+}
+
 .reset-container {
     position: absolute;
     z-index: 2;
     width: 100%;
+    bottom: 0;
 }
+
 #reset,
 #reset:focus {
     display: block;
     height: 35px;
     width: auto;
     margin: auto;
-    margin-top: 10px;
+    margin-bottom: 15px;
     border-radius: 10px;
     background-color: rgba(1, 1, 1, 0.5);
     font-size: 12px;

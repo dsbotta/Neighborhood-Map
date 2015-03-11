@@ -280,4 +280,30 @@ function hideNav() {
 };
 $("#arrow").click(hideNav);
 
+var weatherContainer = $("#weather-image-container");
+var isWeatherVisible = false;
+weatherContainer.click(function() {
+    if(isWeatherVisible === false) {
+        weatherContainer.animate({
+        width: "400"
+    }, 500);
+        isWeatherVisible = true;
+    } else {
+        weatherContainer.animate({
+        width: "80"
+    }, 500);
+        isWeatherVisible = false;
+    }
+});
+
+//GET Weather Underground JSON
+var weatherUgUrl = "http://api.wunderground.com/api/8b2bf4a9a6f86794/conditions/q/DC/Washington.json";
+
+$.getJSON(weatherUgUrl, function(data) {
+    var list = $(".forecast ul");
+    detail = data.current_observation;
+    list.append('<li>Temp: ' + detail.temp_f + '° F</li>');
+    list.append('<li><img style="width: 25px" src="' + detail.icon_url + '">  ' + detail.icon + '</li>');
+});
+
 

@@ -5,7 +5,7 @@ function loadScript() {
   var script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
-      '&signed_in=true&callback=initialize';
+      '&signed_in=false&callback=initialize';
   document.body.appendChild(script);
 }
 window.onload = loadScript;
@@ -13,8 +13,11 @@ window.onload = loadScript;
 //Initialize the map and its contents
 function initialize() {  
     var mapOptions = {
-        zoom: 15,
-        center: new google.maps.LatLng(38.893952, -77.029613)
+        zoom: 14,
+        center: new google.maps.LatLng(38.896952, -77.029713),
+        mapTypeControl: false,
+        disableDefaultUI: true
+
     };
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);  
 
@@ -23,7 +26,7 @@ function initialize() {
     setAllMap();
 
     $("#reset").click(function() {
-    map.setZoom(15);
+    map.setZoom(14);
     map.setCenter(mapOptions.center);
     });
 };
@@ -77,7 +80,7 @@ var markers = [
     boolTest: true
     },
     {   
-    title: "The United States Capital",
+    title: "United States Capital Building",
     lat: 38.889939, 
     lng: -77.00905,
     streetAddress: "East Capitol St NE & First St SE",
@@ -99,7 +102,7 @@ var markers = [
     boolTest: true
     },
     {   
-    title: "The National WWII Memorial",
+    title: "National World War II Memorial",
     lat: 38.889443, 
     lng: -77.040556,
     streetAddress: "1750 Independence Ave SW",
@@ -144,10 +147,20 @@ var markers = [
     }   
 ];
 
+// var foursquareUrl = "https://api.foursquare.com/v2/venues/search?ll=38.896952,-77.029713&query=" + 
+//                              location[i].title +
+//                              "&client_id=PIXBCDXFQJKM15VJ3ETPNRMTGY3NROXY2TTP2F1APNS1NMSS&client_secret=UJK4JJQ0MVNTIF1G53ZTKUZ4CRZPFGHZFNH0EYJF0RQLHRCL&v=20150312";
+
+// $.getJSON(foursquareUrl, function(data) {
+//     var content = data.response.venues[0];
+// });
+
+
 //Sets the markers on the map within the initialize function
     //Sets the infoWindows to each individual marker
     //The markers are inidividually set using a for loop
 function setMarkers(location) {
+    var foursquareUrlArray = [];
     var headingImageView = [5, 235, 55, 170, 190, 240, -10, 10, 190];
     for(i=0; i<location.length; i++) {
         location[i].holdMarker = new google.maps.Marker({
@@ -171,7 +184,7 @@ function setMarkers(location) {
             //Had to pass title for whitehouse & different lat and lng to get images
             //for White House and Capitol 
         var streetViewImage;
-        var streetViewUrl = 'https://maps.googleapis.com/maps/api/streetview?size=200x100&location=';
+        var streetViewUrl = 'https://maps.googleapis.com/maps/api/streetview?size=180x90&location=';
         console.log 
         function determineImage() {
             if (i === 3) {
@@ -187,13 +200,21 @@ function setMarkers(location) {
                             };                   
         };
         determineImage();
+
+        
+
+        
+
+        var infowindow = new google.maps.InfoWindow({
+            content: markers[i].contentString
+        });
+
         //Binds infoWindow content to each marker
         location[i].contentString = '<img src="' + streetViewImage + 
                                     '" alt="Street View Image of ' + location[i].title + '"><br><hr style="margin-bottom: 5px"><strong>' + 
                                     location[i].title + '</strong><br><p>' + 
                                     location[i].streetAddress + '<br>' + 
-                                    location[i].cityAddress + '</p><br><a class="web-links" href="http://' + location[i].url + 
-                                    '">' + location[i].url + '</a>';
+                                    location[i].cityAddress + '<br class="web-links' + [i] + '"></p>';        
 
         var infowindow = new google.maps.InfoWindow({
             content: markers[i].contentString
@@ -285,7 +306,7 @@ var isWeatherVisible = false;
 weatherContainer.click(function() {
     if(isWeatherVisible === false) {
         weatherContainer.animate({
-        width: "400"
+        width: "380"
     }, 500);
         isWeatherVisible = true;
     } else {
@@ -305,5 +326,39 @@ $.getJSON(weatherUgUrl, function(data) {
     list.append('<li>Temp: ' + detail.temp_f + '° F</li>');
     list.append('<li><img style="width: 25px" src="' + detail.icon_url + '">  ' + detail.icon + '</li>');
 });
+
+var isWeatherImageVisible = true;
+var hideWeatherArrow = $("#hide-weather").find("img");
+function hideWeather() {
+    if(isWeatherImageVisible === true) {
+            $("#weather-image-container").animate({
+                height: 0,
+                paddingTop: 0
+            }, 300);
+        isWeatherImageVisible = false;
+        hideWeatherArrow.attr("src", "img/small-down-arrow.png"); 
+    } else {
+            $("#weather-image-container").animate({
+                height: 60,
+                paddingTop: 5
+            }, 300);
+        isWeatherImageVisible = true;
+        hideWeatherArrow.attr("src", "img/small-up-arrow.png");
+    };
+};
+
+$("#hide-weather").click(hideWeather);
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -80,7 +80,7 @@ var markers = [
     boolTest: true
     },
     {   
-    title: "United States Capital Building",
+    title: "The United States Capital",
     lat: 38.889939, 
     lng: -77.00905,
     streetAddress: "East Capitol St NE & First St SE",
@@ -102,7 +102,7 @@ var markers = [
     boolTest: true
     },
     {   
-    title: "National World War II Memorial",
+    title: "The National WWII Memorial",
     lat: 38.889443, 
     lng: -77.040556,
     streetAddress: "1750 Independence Ave SW",
@@ -147,20 +147,10 @@ var markers = [
     }   
 ];
 
-// var foursquareUrl = "https://api.foursquare.com/v2/venues/search?ll=38.896952,-77.029713&query=" + 
-//                              location[i].title +
-//                              "&client_id=PIXBCDXFQJKM15VJ3ETPNRMTGY3NROXY2TTP2F1APNS1NMSS&client_secret=UJK4JJQ0MVNTIF1G53ZTKUZ4CRZPFGHZFNH0EYJF0RQLHRCL&v=20150312";
-
-// $.getJSON(foursquareUrl, function(data) {
-//     var content = data.response.venues[0];
-// });
-
-
 //Sets the markers on the map within the initialize function
     //Sets the infoWindows to each individual marker
     //The markers are inidividually set using a for loop
 function setMarkers(location) {
-    var foursquareUrlArray = [];
     var headingImageView = [5, 235, 55, 170, 190, 240, -10, 10, 190];
     for(i=0; i<location.length; i++) {
         location[i].holdMarker = new google.maps.Marker({
@@ -200,21 +190,13 @@ function setMarkers(location) {
                             };                   
         };
         determineImage();
-
-        
-
-        
-
-        var infowindow = new google.maps.InfoWindow({
-            content: markers[i].contentString
-        });
-
         //Binds infoWindow content to each marker
         location[i].contentString = '<img src="' + streetViewImage + 
                                     '" alt="Street View Image of ' + location[i].title + '"><br><hr style="margin-bottom: 5px"><strong>' + 
                                     location[i].title + '</strong><br><p>' + 
                                     location[i].streetAddress + '<br>' + 
-                                    location[i].cityAddress + '<br class="web-links' + [i] + '"></p>';        
+                                    location[i].cityAddress + '<br></p><a class="web-links" href="http://' + location[i].url + 
+                                    '">' + location[i].url + '</a>';
 
         var infowindow = new google.maps.InfoWindow({
             content: markers[i].contentString
@@ -349,7 +331,15 @@ function hideWeather() {
 
 $("#hide-weather").click(hideWeather);
 
+$("#flickr").click(function() {
+    $(".modal").css("z-index", "3");
+    $(".modal").show()
+});
 
+$("#exit-modal").click(function() {
+    $(".modal").css("z-index", "0");
+    $(".modal").hide();
+});
 
 
 

@@ -95,6 +95,7 @@ hr {
     position: absolute;
     z-index: 2;
     width: 100%;
+    height: 0;
     top: 0;
 }
 
@@ -163,6 +164,13 @@ hr {
     float: middle;
 }
 
+#flickr {
+    height: 70px;
+    width: 70px;
+    float: right;
+    margin: 6px 10px 0 0;
+}
+
 #reset,
 #reset:focus {
     float: center;
@@ -173,7 +181,7 @@ hr {
     border-radius: 50%;
     border: solid white 2px;
     background-color: orange;
-    opacity: 0.8;
+    opacity: 0.9;
     font-size: 14px;
     color: white;
     outline: none;
@@ -188,3 +196,48 @@ hr {
 .web-links {
     color: blue;
 }
+
+.modal {
+    position: absolute;
+    height: 100%; 
+    width: 100%;
+    background-color: rgba(0, 0, 0, .3);
+    z-index: 0;
+    display: none;
+}
+
+.modal-images{
+    height: 425px;
+    width: 35%;
+    margin: 12.5% 32.5%;
+    background-color: #7D7D7D;
+    opacity: 1.0;
+    z-index: 0;
+    border-radius: 10%;
+}
+
+#right-arrow,
+#left-arrow {
+    height: 15%;
+    margin-top: 120px;
+}
+
+#right-arrow {
+    float: right;
+}
+
+#exit-modal {
+    margin-left: 91%;
+    margin-top: -10px;
+    width: 65px;
+    border-radius: 50%;
+}
+
+
+
+
+
+
+
+
+

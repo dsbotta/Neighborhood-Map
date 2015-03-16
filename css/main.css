@@ -207,20 +207,36 @@ hr {
 }
 
 .modal-images{
-    height: 425px;
-    width: 35%;
-    margin: 12.5% 32.5%;
-    background-color: #7D7D7D;
+    max-width: 550px;
+    height: 400px;
+    min-height: 40%;
+    width: 40%;
+    margin: 10% auto;
+    background-color: rgba(200, 200, 200, .8);
     opacity: 1.0;
     z-index: 0;
-    border-radius: 10%;
+    border-radius: 5%;
 }
 
 #right-arrow,
 #left-arrow {
-    height: 15%;
-    margin-top: 120px;
+    height: 50px;
 }
+
+.flickr-image-container img {
+    position: relative;
+    display: block;
+    margin: auto;
+    max-width: 500px;
+    max-height: 300px;
+}
+
+/*.flickr-image2 {
+    display: block;
+    margin: auto;
+    max-height: 300px;
+    display: none;
+}*/
 
 #right-arrow {
     float: right;
@@ -229,7 +245,7 @@ hr {
 #exit-modal {
     margin-left: 91%;
     margin-top: -10px;
-    width: 65px;
+    width: 10%;
     border-radius: 50%;
 }
 

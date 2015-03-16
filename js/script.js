@@ -175,7 +175,7 @@ function setMarkers(location) {
             //for White House and Capitol 
         var streetViewImage;
         var streetViewUrl = 'https://maps.googleapis.com/maps/api/streetview?size=180x90&location=';
-        console.log 
+
         function determineImage() {
             if (i === 3) {
                 streetViewImage = streetViewUrl + '38.892052,-77.008888&fov=75&heading=' + headingImageView[i] + '&pitch=10';                 
@@ -190,6 +190,8 @@ function setMarkers(location) {
                             };                   
         };
         determineImage();
+
+
         //Binds infoWindow content to each marker
         location[i].contentString = '<img src="' + streetViewImage + 
                                     '" alt="Street View Image of ' + location[i].title + '"><br><hr style="margin-bottom: 5px"><strong>' + 
@@ -210,6 +212,7 @@ function setMarkers(location) {
             infowindow.open(map,this);
             map.setZoom(16);
             map.setCenter(marker.getPosition());
+            location[i].picBoolTest = true;
           } 
         })(location[i].holdMarker, i));
         
@@ -222,6 +225,7 @@ function setMarkers(location) {
             infowindow.open(map,marker);
             map.setZoom(16);
             map.setCenter(marker.getPosition());
+            location[i].picBoolTest = true;
           } 
         })(location[i].holdMarker, i));
     }
@@ -330,19 +334,6 @@ function hideWeather() {
 };
 
 $("#hide-weather").click(hideWeather);
-
-$("#flickr").click(function() {
-    $(".modal").css("z-index", "3");
-    $(".modal").show()
-});
-
-$("#exit-modal").click(function() {
-    $(".modal").css("z-index", "0");
-    $(".modal").hide();
-});
-
-
-
 
 
 

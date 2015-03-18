@@ -5,8 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Neighborhood Map Project</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" media="(max-width: 670px)" href="css/responsive.css">
 </head>
 <body>
+    <style>
+        * {box-sizing:border-box;}
+        *:visited {color: #7D7D7D}
+        body {background-color: #CCC; color: #7D7D7D;}
+        html, body, #map-canvas {width: 100%; height: 100%; z-index: 1; position: absolute; margin: 0;}
+        p {font-size: 12px; margin: 5px 0;}
+        strong {font-size: 14px;}
+        ul {list-style-type: none; padding-left: 0; margin-bottom: 0;}
+        li {font-family: Helvetica, sans-serif; padding: 20px 0 15px 15px;}
+        li:hover {background-color: #7D7D7D; color: white;}
+        a {text-decoration: none; color: #7D7D7D;}
+        hr { margin: 10px 0 0 0; color: orange; border-color: orange;}
+    </style>
     <div id="map-canvas"></div>
     <div id="search-container">
         <div id="search-nav">    
@@ -23,46 +37,42 @@
                                 <p data-bind="text: cityAddress"></p> 
                             </li>
                         </a>
-                       
                     </div>
                 </script>    
             </div>
         </div> 
         <div id="arrow-container">
-        <img id="arrow" src="img/up-arrow.gif" alt="arrow image">
+            <img id="arrow" src="img/up-arrow.gif" alt="arrow image">
         </div>   
     </div>
     <div class="weather-container">
-            <div id="weather-image-container">
-                <img src="img/weather-underground.png" alt="Weather Underground Logo">
-                <div class="forecast">
-                    <h3>Washington DC Weather Forecast</h3>
-                    <ul style="margin: 0">
-                    </ul>
-                </div>
+        <div id="weather-image-container">
+            <img src="img/weather-underground.png" alt="Weather Underground Logo">
+            <div class="forecast">
+                <h3>Washington DC Weather Forecast</h3>
+                <ul style="margin: 0">
+                </ul>
             </div>
-            <div id="hide-weather">
-                <img style="width: 15px" src="img/small-up-arrow.png" style="margin: 0;">
-            </div> 
+        </div>
+        <div id="hide-weather">
+            <img style="width: 15px" src="img/small-up-arrow.png" style="margin: 0;" alt="Small up arrow">
+        </div> 
     </div>    
     <div class="reset-container">
         <button id="reset">Reset Map Zoom</button>
-        <img id="flickr" src="img/flickr.png">
+        <img id="flickr" src="img/flickr.png" alt="Flickr Logo">
     </div>
-
     <div class="modal">
         <div class="modal-images">
-            <img id="exit-modal" src="img/exit.jpeg">
+            <img id="exit-modal" src="img/exit.jpeg" alt="Exit Button Image">
             <div class="flickr-image-container" onload="scrollForward"></div>
-            <img id="right-arrow" src="img/right-arrow.png">
-            <img id="left-arrow" src="img/left-arrow.png">
+            <img id="right-arrow" src="img/right-arrow.png" alt="right-arrow">
+            <img id="left-arrow" src="img/left-arrow.png" alt="left-arrow">
         </div> 
     </div>
-
-    
-    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script type='text/javascript' src='js/lib/knockout-3.3.0.js'></script>
-    <script async src="js/script.js"></script>
-    <script async src="js/flickr.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/lib/knockout-3.3.0.js"></script>
+    <script async type="text/javascript" src="js/script.js"></script>
+    <script async type="text/javascript" src="js/flickr.js"></script>
 </body>
 </html>

@@ -17,18 +17,38 @@ function initialize() {
         center: new google.maps.LatLng(38.896952, -77.029713),
         mapTypeControl: false,
         disableDefaultUI: true
-
     };
+    if($(window).width() <= 1080) {
+        mapOptions.zoom = 13;
+    };
+    if ($(window).width() < 850 || $(window).height() < 595) {
+        hideNav();
+    };
+
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);  
 
     setMarkers(markers);
 
     setAllMap();
 
+    //Reset map on click handler and
+    //when window resize conditionals are met
+    function resetMap() {
+        var windowWidth = $(window).width();
+        if(windowWidth <= 1080) {
+            map.setZoom(13);
+            map.setCenter(mapOptions.center);
+        } else if(windowWidth > 1080) {
+            map.setZoom(14);
+            map.setCenter(mapOptions.center);   
+        };
+    };
     $("#reset").click(function() {
-    map.setZoom(14);
-    map.setCenter(mapOptions.center);
+        resetMap()
     });
+   $(window).resize(function() {
+        resetMap()
+    }); 
 };
 
 //Determines if markers should be visible
@@ -169,7 +189,7 @@ function setMarkers(location) {
           }  
         });
 
-        //Gets Google Street View Images for each inidividual marker
+        //Get Google Street View Image for each inidividual marker
             //Passed lat and lng to get each image location
             //Had to pass title for whitehouse & different lat and lng to get images
             //for White House and Capitol 
@@ -198,7 +218,7 @@ function setMarkers(location) {
                                     location[i].title + '</strong><br><p>' + 
                                     location[i].streetAddress + '<br>' + 
                                     location[i].cityAddress + '<br></p><a class="web-links" href="http://' + location[i].url + 
-                                    '">' + location[i].url + '</a>';
+                                    '" target="_blank">' + location[i].url + '</a>';
 
         var infowindow = new google.maps.InfoWindow({
             content: markers[i].contentString
@@ -210,7 +230,12 @@ function setMarkers(location) {
           return function() {
             infowindow.setContent(location[i].contentString);
             infowindow.open(map,this);
-            map.setZoom(16);
+            var windowWidth = $(window).width();
+            if(windowWidth <= 1080) {
+                map.setZoom(14);
+            } else if(windowWidth > 1080) {
+                map.setZoom(16);  
+            };
             map.setCenter(marker.getPosition());
             location[i].picBoolTest = true;
           } 
@@ -259,12 +284,12 @@ $("#input").keyup(function() {
 setAllMap();
 });
 
-//Hide and Show entire Nav/Search Bar
-    //Bound to the arrow button
+//Hide and Show entire Nav/Search Bar on click
+    // Hide/Show Bound to the arrow button
+    //Nav is repsonsive to smaller screen sizes
 var isNavVisible = true;
-function hideNav() {
-    if(isNavVisible === true) {
-            $("#search-nav").animate({
+function noNav() {
+    $("#search-nav").animate({
                 height: 0, 
             }, 500);
             setTimeout(function() {
@@ -272,28 +297,76 @@ function hideNav() {
             }, 500);    
             $("#arrow").attr("src", "img/down-arrow.gif");
             isNavVisible = false;
-            
-    } else {
-            $("#search-nav").show();
+};
+function yesNav() {
+    $("#search-nav").show();
             var scrollerHeight = $("#scroller").height() + 55;
+            if($(window).height() < 600) {
+                $("#search-nav").animate({
+                    height: scrollerHeight - 100,
+                }, 500, function() {
+                    $(this).css('height','auto').css("max-height", 439);
+                });  
+            } else {
             $("#search-nav").animate({
                 height: scrollerHeight,
             }, 500, function() {
                 $(this).css('height','auto').css("max-height", 549);
             });
+            };
             $("#arrow").attr("src", "img/up-arrow.gif");
-            isNavVisible = true;  
+            isNavVisible = true;
+};
+
+function hideNav() {
+    if(isNavVisible === true) {
+            noNav();
+            
+    } else {
+            yesNav();  
     };
 };
 $("#arrow").click(hideNav);
 
+//Hide Nav if screen width is resized to < 850 or height < 595
+//Show Nav if screen is resized to >= 850 or height is >= 595
+    //Function is run when window is resized
+$(window).resize(function() {
+    var windowWidth = $(window).width();
+    if ($(window).width() < 850 && isNavVisible === true) {
+            noNav();
+        } else if($(window).height() < 595 && isNavVisible === true) {
+            noNav();
+        };
+    if ($(window).width() >= 850 && isNavVisible === false) {
+            if($(window).height() > 595) {
+                yesNav();
+            };
+        } else if($(window).height() >= 595 && isNavVisible === false) {
+            if($(window).width() > 850) {
+                yesNav();
+            };     
+        };    
+});
+
+//Expand .forecast div on click to see Weather Underground forecast
+//and shrink back when additionally clicked
+    //size is repsonsive to smaller screens
 var weatherContainer = $("#weather-image-container");
 var isWeatherVisible = false;
 weatherContainer.click(function() {
     if(isWeatherVisible === false) {
-        weatherContainer.animate({
-        width: "380"
-    }, 500);
+        if($(window).width() < 670) {
+            $(".forecast li").css("display", "block");
+            weatherContainer.animate({
+                width: "245"
+            }, 500);
+        } else {
+            $(".forecast li").css("display", "inline-block");
+            weatherContainer.animate({
+                width: "380"
+            }, 500);
+        };
         isWeatherVisible = true;
     } else {
         weatherContainer.animate({
@@ -304,6 +377,8 @@ weatherContainer.click(function() {
 });
 
 //GET Weather Underground JSON
+    //Append Weather forecast for Washington DC to .forecast
+    //If error on GET JSON, display message
 var weatherUgUrl = "http://api.wunderground.com/api/8b2bf4a9a6f86794/conditions/q/DC/Washington.json";
 
 $.getJSON(weatherUgUrl, function(data) {
@@ -311,8 +386,11 @@ $.getJSON(weatherUgUrl, function(data) {
     detail = data.current_observation;
     list.append('<li>Temp: ' + detail.temp_f + '° F</li>');
     list.append('<li><img style="width: 25px" src="' + detail.icon_url + '">  ' + detail.icon + '</li>');
-});
+}).error(function(e){
+        $(".forecast").append('<p style="text-align: center;">Sorry! Weather Underground</p><p style="text-align: center;">Could Not Be Loaded</p>');
+    });
 
+//Hide and show Weather forecast div from screen on click
 var isWeatherImageVisible = true;
 var hideWeatherArrow = $("#hide-weather").find("img");
 function hideWeather() {
@@ -334,12 +412,3 @@ function hideWeather() {
 };
 
 $("#hide-weather").click(hideWeather);
-
-
-
-
-
-
-
-
-

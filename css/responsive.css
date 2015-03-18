@@ -1,0 +1,49 @@
+@media screen and (max-width: 670px) {
+	.forecast h3 {
+		display: none;
+	}
+
+	.forecast li {
+		margin: 0 1px;
+	}	
+}
+
+@media screen and (max-width: 600px) {
+	.flickr-image-container img {
+	    position: relative;
+	    display: block;
+	    margin: auto;
+	    max-width: 325px;
+	    overflow: hidden;
+	    height: 195px;
+	}
+
+	.modal-images{
+	    max-width: 325px;
+	    min-width: 325px;
+	    height: 260px;
+	    margin: 30% auto;
+	}
+}
+
+@media screen and (max-width: 700px) and (orientation:landscape) {
+	.flickr-image-container img {
+	    position: relative;
+	    display: block;
+	    margin: auto;
+	    max-width: 325px;
+	    overflow: hidden;
+	    height: 195px;
+	}
+
+	.modal-images{
+		max-width: 325px;
+	    min-width: 325px;
+	    height: 260px;
+		margin: 7% auto;
+	}
+
+	#search-container {
+		display: none;
+	}
+}

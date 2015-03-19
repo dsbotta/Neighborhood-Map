@@ -82,5 +82,4 @@ function scrollBackWard() {
 };
 
 $("#right-arrow").click(scrollForward);
-$("#left-arrow").click(scrollBackWard);  
-       
+$("#left-arrow").click(scrollBackWard);        

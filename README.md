@@ -2,7 +2,7 @@ Udacity Neighborhood Map: Project 5
 By: Daniel Botta
 
 Follow the link to open the project:
-http://dsbotta.github.io/
+http://dsbotta.github.io/project-5
 
 Basic Description
 This project is SAP using Google Maps API to display the Washington DC area.

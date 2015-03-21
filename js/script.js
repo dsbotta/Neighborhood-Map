@@ -20,10 +20,10 @@ function initialize() {
     };
     if($(window).width() <= 1080) {
         mapOptions.zoom = 13;
-    };
+    }
     if ($(window).width() < 850 || $(window).height() < 595) {
         hideNav();
-    };
+    }
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);  
 
@@ -41,27 +41,27 @@ function initialize() {
         } else if(windowWidth > 1080) {
             map.setZoom(14);
             map.setCenter(mapOptions.center);   
-        };
-    };
+        }
+    }
     $("#reset").click(function() {
-        resetMap()
+        resetMap();
     });
    $(window).resize(function() {
-        resetMap()
+        resetMap();
     }); 
-};
+}
 
 //Determines if markers should be visible
 //This function is passed in the knockout viewModel function
 function setAllMap() {
   for (var i = 0; i < markers.length; i++) {
-    if(markers[i].boolTest == true) {
+    if(markers[i].boolTest === true) {
     markers[i].holdMarker.setMap(map);
     } else {
     markers[i].holdMarker.setMap(null);
     }
   }
-};
+}
 
 //Information about the different locations
 //Provides information for the markers
@@ -167,11 +167,33 @@ var markers = [
     }   
 ];
 
+//Get Google Street View Image for each inidividual marker
+    //Passed lat and lng to get each image location
+    //Had to pass title for whitehouse & different lat and lng to get images
+    //for White House and Capitol
+var headingImageView = [5, 235, 55, 170, 190, 240, -10, 10, 190];     
+var streetViewImage;
+var streetViewUrl = 'https://maps.googleapis.com/maps/api/streetview?size=180x90&location=';
+
+function determineImage() {
+    if (i === 3) {
+        streetViewImage = streetViewUrl + '38.892052,-77.008888&fov=75&heading=' + headingImageView[i] + '&pitch=10';                 
+    } else if (i === 4) {
+        streetViewImage = streetViewUrl +
+                        markers[i].streetAddress + ',' + markers[i].cityAddress +
+                        '&fov=75&heading=' + headingImageView[i] + '&pitch=10';
+    } else {
+       streetViewImage = streetViewUrl +
+                        markers[i].lat + ',' + markers[i].lng +
+                        '&fov=75&heading=' + headingImageView[i] + '&pitch=10'; 
+                    }                   
+}
+
 //Sets the markers on the map within the initialize function
     //Sets the infoWindows to each individual marker
     //The markers are inidividually set using a for loop
 function setMarkers(location) {
-    var headingImageView = [5, 235, 55, 170, 190, 240, -10, 10, 190];
+    
     for(i=0; i<location.length; i++) {
         location[i].holdMarker = new google.maps.Marker({
           position: new google.maps.LatLng(location[i].lat, location[i].lng),
@@ -189,28 +211,8 @@ function setMarkers(location) {
           }  
         });
 
-        //Get Google Street View Image for each inidividual marker
-            //Passed lat and lng to get each image location
-            //Had to pass title for whitehouse & different lat and lng to get images
-            //for White House and Capitol 
-        var streetViewImage;
-        var streetViewUrl = 'https://maps.googleapis.com/maps/api/streetview?size=180x90&location=';
-
-        function determineImage() {
-            if (i === 3) {
-                streetViewImage = streetViewUrl + '38.892052,-77.008888&fov=75&heading=' + headingImageView[i] + '&pitch=10';                 
-            } else if (i === 4) {
-                streetViewImage = streetViewUrl +
-                                location[i].streetAddress + ',' + location[i].cityAddress +
-                                '&fov=75&heading=' + headingImageView[i] + '&pitch=10';
-            } else {
-               streetViewImage = streetViewUrl +
-                                location[i].lat + ',' + location[i].lng +
-                                '&fov=75&heading=' + headingImageView[i] + '&pitch=10'; 
-                            };                   
-        };
+        //function to place google street view images within info windows
         determineImage();
-
 
         //Binds infoWindow content to each marker
         location[i].contentString = '<img src="' + streetViewImage + 
@@ -235,10 +237,10 @@ function setMarkers(location) {
                 map.setZoom(14);
             } else if(windowWidth > 1080) {
                 map.setZoom(16);  
-            };
+            }
             map.setCenter(marker.getPosition());
             location[i].picBoolTest = true;
-          } 
+          }; 
         })(location[i].holdMarker, i));
         
         //Click nav element to view infoWindow
@@ -251,10 +253,10 @@ function setMarkers(location) {
             map.setZoom(16);
             map.setCenter(marker.getPosition());
             location[i].picBoolTest = true;
-          } 
+          }; 
         })(location[i].holdMarker, i));
     }
-};
+}
 
 //Query through the different locations from nav bar with knockout.js
     //only display markers and nav elements that match query result
@@ -268,11 +270,11 @@ viewModel.markers = ko.dependentObservable(function() {
     return ko.utils.arrayFilter(markers, function(marker) {
     if (marker.title.toLowerCase().indexOf(search) >= 0) {
             marker.boolTest = true;
-            return marker.visible(true)
+            return marker.visible(true);
         } else {
             marker.boolTest = false;
             setAllMap();
-            return marker.visible(false)
+            return marker.visible(false);
         }
     });       
 }, viewModel);
@@ -297,7 +299,7 @@ function noNav() {
             }, 500);    
             $("#arrow").attr("src", "img/down-arrow.gif");
             isNavVisible = false;
-};
+}
 function yesNav() {
     $("#search-nav").show();
             var scrollerHeight = $("#scroller").height() + 55;
@@ -313,10 +315,10 @@ function yesNav() {
             }, 500, function() {
                 $(this).css('height','auto').css("max-height", 549);
             });
-            };
+            }
             $("#arrow").attr("src", "img/up-arrow.gif");
             isNavVisible = true;
-};
+}
 
 function hideNav() {
     if(isNavVisible === true) {
@@ -324,8 +326,8 @@ function hideNav() {
             
     } else {
             yesNav();  
-    };
-};
+    }
+}
 $("#arrow").click(hideNav);
 
 //Hide Nav if screen width is resized to < 850 or height < 595
@@ -337,16 +339,16 @@ $(window).resize(function() {
             noNav();
         } else if($(window).height() < 595 && isNavVisible === true) {
             noNav();
-        };
+        }
     if ($(window).width() >= 850 && isNavVisible === false) {
             if($(window).height() > 595) {
                 yesNav();
-            };
+            }
         } else if($(window).height() >= 595 && isNavVisible === false) {
             if($(window).width() > 850) {
                 yesNav();
-            };     
-        };    
+            }     
+        }    
 });
 
 //Expand .forecast div on click to see Weather Underground forecast
@@ -366,7 +368,7 @@ weatherContainer.click(function() {
             weatherContainer.animate({
                 width: "380"
             }, 500);
-        };
+        }
         isWeatherVisible = true;
     } else {
         weatherContainer.animate({
@@ -408,7 +410,7 @@ function hideWeather() {
             }, 300);
         isWeatherImageVisible = true;
         hideWeatherArrow.attr("src", "img/small-up-arrow.png");
-    };
-};
+    }
+}
 
 $("#hide-weather").click(hideWeather);

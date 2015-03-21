@@ -3,7 +3,7 @@ var flickrJSON;
 //Binds click handler to flickr image to open modal
 $("#flickr").click(function() {
     $(".modal").css("z-index", "3");
-    $(".modal").show()
+    $(".modal").show();
 });
 
 //Binds click handler to x button to close modal
@@ -33,7 +33,7 @@ function getFlickrImages() {
 
 				}
         });
-};
+}
 getFlickrImages();
 
 var flickrPhotoArray = [];
@@ -44,7 +44,7 @@ var imagesAreSet = false;
 //Store image data in flickrPhotoArray
 //Hide all images except the first
 function setFlickrImages() {
-	if(imagesAreSet == false) {
+	if(imagesAreSet === false) {
 		for(var i=0; i < 25; i++) {
 			var number = Math.floor((Math.random() * 250) + 1);
 			var photo = 'https://farm' + flickrJSON[number].farm + '.staticflickr.com/' + flickrJSON[number].server + '/' + flickrJSON[number].id + '_' + flickrJSON[number].secret + '.jpg';
@@ -53,12 +53,12 @@ function setFlickrImages() {
 			$("#flickr-image" + i).hide();	
 			if(i < 1) {
 				$("#flickr-image" + i).show();
-			};
-		};
+			}
+		}
 	} else {
 		$("#flickr-image" + counter).show();
-	};
-};
+	}
+}
 $("#flickr").click(setFlickrImages);
 
 //Bind click handler to arrow button to view next image
@@ -67,9 +67,9 @@ function scrollForward() {
 	counter += 1;
 	if(counter >= 24) {
 		counter = 0;
-	};
+	}
 	$('#flickr-image' + counter).fadeIn(300);	
-};
+}
 
 //Bind click handler to arrow button to view previous image
 function scrollBackWard() {
@@ -77,9 +77,9 @@ function scrollBackWard() {
 	counter -= 1;
 	if(counter < 0) {
 		counter = 24;
-	};
+	}
 	$('#flickr-image' + counter).fadeIn(300);	
-};
+}
 
 $("#right-arrow").click(scrollForward);
 $("#left-arrow").click(scrollBackWard);        
